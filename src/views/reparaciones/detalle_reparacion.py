@@ -8,9 +8,9 @@ Diálogo para mostrar los detalles de una reparación.
 import logging
 from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QLabel, QDialogButtonBox, 
                            QFormLayout, QGroupBox, QTextBrowser, QTabWidget,
-                           QWidget, QPushButton, QMessageBox)
+                           QWidget, QPushButton, QMessageBox, QFrame, QHBoxLayout)
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QIcon
 
 from database.reparaciones_dao import ReparacionesDAO
 from database.camiones_dao import CamionesDAO
@@ -40,18 +40,62 @@ class DetalleReparacionDialog(QDialog):
         self.setup_ui()
         self.load_data()
         
-        self.setWindowTitle(f"Detalles de Reparación - {self.reparacion.id_falla}")
+        self.setWindowTitle(f"Detalles de Reparación #{self.reparacion.id_falla}")
     
     def setup_ui(self):
         """Configura la interfaz de usuario"""
-        self.setMinimumSize(600, 500)
+        self.setMinimumSize(700, 600)
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
+        
+        # Establecer fuente más grande para todo el diálogo
+        font = QFont()
+        font.setPointSize(11)
+        self.setFont(font)
         
         # Layout principal
         main_layout = QVBoxLayout(self)
+        main_layout.setContentsMargins(0, 0, 0, 0)  # Sin márgenes para que la barra ocupe todo el ancho
+        main_layout.setSpacing(0)  # Sin espacio entre la barra y el contenido
+        
+        # Barra superior morada
+        header = QFrame()
+        header.setStyleSheet("background-color: #6a1b9a;")
+        header.setFixedHeight(80)  # Altura fija para la barra superior
+        header_layout = QVBoxLayout(header)
+        header_layout.setAlignment(Qt.AlignCenter)
+        
+        # Título en la barra morada
+        title_label = QLabel(f"Detalles de la Reparación #{self.reparacion.id_falla}")
+        title_label.setStyleSheet("color: white; font-size: 18px; font-weight: bold;")
+        title_label.setAlignment(Qt.AlignCenter)
+        header_layout.addWidget(title_label)
+        
+        main_layout.addWidget(header)
+        
+        # Contenido principal con pestañas
+        content_widget = QWidget()
+        content_layout = QVBoxLayout(content_widget)
+        content_layout.setContentsMargins(20, 20, 20, 20)
+        content_layout.setSpacing(15)
         
         # Tabs para organizar la información
         self.tab_widget = QTabWidget()
+        self.tab_widget.setStyleSheet("""
+            QTabWidget::pane {
+                border: 1px solid #d0d0d0;
+                border-radius: 4px;
+            }
+            QTabBar::tab {
+                background-color: #f0f0f0;
+                padding: 8px 15px;
+                margin-right: 2px;
+                font-size: 12px;
+            }
+            QTabBar::tab:selected {
+                background-color: #6a1b9a;
+                color: white;
+            }
+        """)
         
         # Tab: Información General
         self.info_tab = QWidget()
@@ -63,85 +107,123 @@ class DetalleReparacionDialog(QDialog):
         self.setup_notes_tab()
         self.tab_widget.addTab(self.notes_tab, "Notas y Seguimiento")
         
-        main_layout.addWidget(self.tab_widget)
+        content_layout.addWidget(self.tab_widget)
         
         # Botones
-        buttons_layout = QVBoxLayout()
+        button_layout = QHBoxLayout()
+        button_layout.setSpacing(15)
         
         # Botón para cambiar estado
         self.change_status_button = QPushButton("Cambiar Estado")
+        self.change_status_button.setMinimumHeight(40)
+        self.change_status_button.setStyleSheet("background-color: #4caf50; color: white; font-weight: bold; padding: 8px 16px; font-size: 14px;")
         self.change_status_button.clicked.connect(self.on_change_status)
-        buttons_layout.addWidget(self.change_status_button)
+        button_layout.addWidget(self.change_status_button)
         
-        # Botones estándar
-        button_box = QDialogButtonBox(QDialogButtonBox.Close)
-        button_box.rejected.connect(self.reject)
-        buttons_layout.addWidget(button_box)
+        # Botón cerrar
+        self.close_button = QPushButton("Cerrar")
+        self.close_button.setMinimumHeight(40)
+        self.close_button.setStyleSheet("background-color: #f44336; color: white; font-weight: bold; padding: 8px 16px; font-size: 14px;")
+        self.close_button.clicked.connect(self.reject)
+        button_layout.addWidget(self.close_button)
         
-        main_layout.addLayout(buttons_layout)
+        content_layout.addLayout(button_layout)
+        
+        main_layout.addWidget(content_widget)
     
     def setup_info_tab(self):
         """Configura la pestaña de información general"""
         layout = QVBoxLayout(self.info_tab)
         
-        # Título
-        title_label = QLabel("Información de la Reparación")
-        title_label.setAlignment(Qt.AlignCenter)
-        title_label.setStyleSheet("font-size: 16px; font-weight: bold;")
-        layout.addWidget(title_label)
-        
         # Grupo: Datos básicos
         basic_group = QGroupBox("Datos Básicos")
+        basic_group.setStyleSheet("QGroupBox { font-weight: bold; font-size: 13px; }")
         form_layout = QFormLayout(basic_group)
+        form_layout.setVerticalSpacing(12)
+        form_layout.setLabelAlignment(Qt.AlignLeft)
+        form_layout.setFormAlignment(Qt.AlignLeft)
+        
+        # Estilos
+        label_style = "font-weight: bold; color: #444444; font-size: 18px;"
+        value_style = "font-size: 16px;"
         
         # ID de falla
         self.id_falla_label = QLabel()
-        self.id_falla_label.setStyleSheet("font-weight: bold;")
-        form_layout.addRow("ID de falla:", self.id_falla_label)
+        self.id_falla_label.setStyleSheet(value_style)
+        id_falla_title = QLabel("ID de falla:")
+        id_falla_title.setStyleSheet(label_style)
+        form_layout.addRow(id_falla_title, self.id_falla_label)
         
         # Camión
         self.camion_label = QLabel()
-        form_layout.addRow("Camión:", self.camion_label)
+        self.camion_label.setStyleSheet(value_style)
+        camion_title = QLabel("Camión:")
+        camion_title.setStyleSheet(label_style)
+        form_layout.addRow(camion_title, self.camion_label)
         
         # Motivo de falla
         self.motivo_falla_label = QLabel()
-        form_layout.addRow("Motivo de falla:", self.motivo_falla_label)
+        self.motivo_falla_label.setStyleSheet(value_style)
+        motivo_title = QLabel("Motivo de falla:")
+        motivo_title.setStyleSheet(label_style)
+        form_layout.addRow(motivo_title, self.motivo_falla_label)
         
         layout.addWidget(basic_group)
         
         # Grupo: Descripción
         desc_group = QGroupBox("Descripción")
+        desc_group.setStyleSheet("QGroupBox { font-weight: bold; font-size: 13px; }")
         desc_layout = QVBoxLayout(desc_group)
         
         self.descripcion_browser = QTextBrowser()
         self.descripcion_browser.setReadOnly(True)
+        self.descripcion_browser.setStyleSheet("font-size: 16px;")
         desc_layout.addWidget(self.descripcion_browser)
         
         layout.addWidget(desc_group)
         
         # Grupo: Estado y Fechas
         status_group = QGroupBox("Estado y Fechas")
+        status_group.setStyleSheet("QGroupBox { font-weight: bold; font-size: 13px; }")
         status_layout = QFormLayout(status_group)
+        status_layout.setVerticalSpacing(12)
+        status_layout.setLabelAlignment(Qt.AlignLeft)
+        status_layout.setFormAlignment(Qt.AlignLeft)
         
         # Estado
         self.estado_label = QLabel()
-        status_layout.addRow("Estado:", self.estado_label)
+        self.estado_label.setStyleSheet(value_style)
+        estado_title = QLabel("Estado:")
+        estado_title.setStyleSheet(label_style)
+        status_layout.addRow(estado_title, self.estado_label)
         
         # Mecánico
         self.mecanico_label = QLabel()
-        status_layout.addRow("Mecánico responsable:", self.mecanico_label)
+        self.mecanico_label.setStyleSheet(value_style)
+        mecanico_title = QLabel("Mecánico responsable:")
+        mecanico_title.setStyleSheet(label_style)
+        status_layout.addRow(mecanico_title, self.mecanico_label)
         
         # Tiempo estimado
         self.tiempo_estimado_label = QLabel()
-        status_layout.addRow("Tiempo estimado:", self.tiempo_estimado_label)
+        self.tiempo_estimado_label.setStyleSheet(value_style)
+        tiempo_title = QLabel("Tiempo estimado:")
+        tiempo_title.setStyleSheet(label_style)
+        status_layout.addRow(tiempo_title, self.tiempo_estimado_label)
         
         # Fecha de entrada
         self.fecha_entrada_label = QLabel()
-        status_layout.addRow("Fecha de entrada:", self.fecha_entrada_label)
+        self.fecha_entrada_label.setStyleSheet(value_style)
+        fecha_entrada_title = QLabel("Fecha de entrada:")
+        fecha_entrada_title.setStyleSheet(label_style)
+        status_layout.addRow(fecha_entrada_title, self.fecha_entrada_label)
         
         # Fecha de salida
         self.fecha_salida_label = QLabel()
-        status_layout.addRow("Fecha de salida:", self.fecha_salida_label)
+        self.fecha_salida_label.setStyleSheet(value_style)
+        fecha_salida_title = QLabel("Fecha de salida:")
+        fecha_salida_title.setStyleSheet(label_style)
+        status_layout.addRow(fecha_salida_title, self.fecha_salida_label)
         
         layout.addWidget(status_group)
     
@@ -150,17 +232,19 @@ class DetalleReparacionDialog(QDialog):
         layout = QVBoxLayout(self.notes_tab)
         
         # Título
-        title_label = QLabel("Notas y Seguimiento")
-        title_label.setAlignment(Qt.AlignCenter)
-        title_label.setStyleSheet("font-size: 16px; font-weight: bold;")
-        layout.addWidget(title_label)
+        notes_title = QLabel("Notas y Seguimiento")
+        notes_title.setAlignment(Qt.AlignCenter)
+        notes_title.setStyleSheet("font-size: 16px; font-weight: bold;")
+        layout.addWidget(notes_title)
         
         # Notas adicionales
         notes_group = QGroupBox("Notas Adicionales")
+        notes_group.setStyleSheet("QGroupBox { font-weight: bold; font-size: 13px; }")
         notes_layout = QVBoxLayout(notes_group)
         
         self.notas_browser = QTextBrowser()
         self.notas_browser.setReadOnly(True)
+        self.notas_browser.setStyleSheet("font-size: 16px;")
         notes_layout.addWidget(self.notas_browser)
         
         layout.addWidget(notes_group)

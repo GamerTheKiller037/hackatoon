@@ -1,10 +1,9 @@
-
 import logging
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, 
                             QTableWidgetItem, QPushButton, QLabel, QLineEdit,
                             QComboBox, QHeaderView, QMessageBox, QMenu)
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
-from PyQt5.QtGui import QColor, QBrush
+from PyQt5.QtGui import QColor, QBrush, QFont
 
 from database.mecanicos_dao import MecanicosDAO
 from models.mecanico import Mecanico
@@ -34,6 +33,12 @@ class ListaMecanicosWidget(QWidget):
         # Layout principal
         main_layout = QVBoxLayout(self)
         
+        # Título
+        title_label = QLabel("Gestión de Mecánicos")
+        title_label.setStyleSheet("font-size: 18px; font-weight: bold; color: #6a1b9a;")
+        title_label.setAlignment(Qt.AlignCenter)
+        main_layout.addWidget(title_label)
+        
         # Sección de filtros
         filter_layout = QHBoxLayout()
         
@@ -55,10 +60,35 @@ class ListaMecanicosWidget(QWidget):
         
         # Botón de limpiar filtros
         self.clear_filter_button = QPushButton("Limpiar Filtros")
+        self.clear_filter_button.setStyleSheet("background-color: #e1bee7; font-weight: bold; border-radius: 4px;")
         self.clear_filter_button.clicked.connect(self.clear_filters)
         filter_layout.addWidget(self.clear_filter_button)
         
         main_layout.addLayout(filter_layout)
+        
+        # Botones de acción
+        action_layout = QHBoxLayout()
+        
+        self.add_button = QPushButton("Agregar Mecánico")
+        self.add_button.setStyleSheet("background-color: #4caf50; color: white; font-weight: bold; border-radius: 4px;")
+        self.add_button.clicked.connect(self.on_add_button_clicked)
+        action_layout.addWidget(self.add_button)
+        
+        self.edit_button = QPushButton("Editar Mecánico")
+        self.edit_button.clicked.connect(self.on_edit_button_clicked)
+        action_layout.addWidget(self.edit_button)
+        
+        self.details_button = QPushButton("Ver Detalles")
+        self.details_button.clicked.connect(self.on_details_button_clicked)
+        action_layout.addWidget(self.details_button)
+        
+        if self.current_user and self.current_user.rol == Usuario.ROL_ADMIN:
+            self.delete_button = QPushButton("Eliminar Mecánico")
+            self.delete_button.setStyleSheet("background-color: #f44336; color: white font-weight: bold; border-radius: 4px;")
+            self.delete_button.clicked.connect(self.on_delete_button_clicked)
+            action_layout.addWidget(self.delete_button)
+        
+        main_layout.addLayout(action_layout)
         
         # Tabla de mecánicos
         self.table = QTableWidget()
@@ -73,29 +103,12 @@ class ListaMecanicosWidget(QWidget):
         self.table.setContextMenuPolicy(Qt.CustomContextMenu)
         self.table.customContextMenuRequested.connect(self.show_context_menu)
         
+        # Establecer fuente más grande para la tabla
+        font = QFont()
+        font.setPointSize(11)
+        self.table.setFont(font)
+        
         main_layout.addWidget(self.table)
-        
-        # Botones de acción
-        button_layout = QHBoxLayout()
-        
-        self.add_button = QPushButton("Agregar Mecánico")
-        self.add_button.clicked.connect(self.on_add_button_clicked)
-        button_layout.addWidget(self.add_button)
-        
-        self.edit_button = QPushButton("Editar Mecánico")
-        self.edit_button.clicked.connect(self.on_edit_button_clicked)
-        button_layout.addWidget(self.edit_button)
-        
-        self.details_button = QPushButton("Ver Detalles")
-        self.details_button.clicked.connect(self.on_details_button_clicked)
-        button_layout.addWidget(self.details_button)
-        
-        if self.current_user and self.current_user.rol == Usuario.ROL_ADMIN:
-            self.delete_button = QPushButton("Eliminar Mecánico")
-            self.delete_button.clicked.connect(self.on_delete_button_clicked)
-            button_layout.addWidget(self.delete_button)
-        
-        main_layout.addLayout(button_layout)
         
         # Deshabilitar botones hasta que se seleccione un mecánico
         self.edit_button.setEnabled(False)
@@ -110,6 +123,10 @@ class ListaMecanicosWidget(QWidget):
         self.info_label = QLabel("Haga doble clic en un mecánico para ver sus detalles")
         self.info_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(self.info_label)
+        
+        # Establecer margen y espaciado
+        main_layout.setContentsMargins(15, 15, 15, 15)
+        main_layout.setSpacing(10)
     
     def refresh_data(self):
         """Actualiza los datos de la tabla"""
@@ -150,6 +167,9 @@ class ListaMecanicosWidget(QWidget):
         
         self.info_label.setText(f"Total: {len(mecanicos)} mecánicos")
     
+
+
+
     def apply_filters(self):
         """Aplica los filtros a la tabla"""
         nombre_filter = self.nombre_filter.text().strip().lower()

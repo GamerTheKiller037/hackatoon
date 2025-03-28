@@ -1866,3 +1866,591 @@ AttributeError: 'FormReparaciones' object has no attribute 'cargarCamiones'
 2025-03-27 10:06:38,488 - root - INFO - Conexión establecida a MongoDB: None
 2025-03-27 10:06:38,490 - root - INFO - Base de datos: None
 2025-03-27 10:06:38,588 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 10:30:40,637 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 10:32:44,549 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 10:32:45,014 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 10:33:11,883 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 10:33:11,885 - root - INFO - Base de datos: None
+2025-03-27 10:33:11,987 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 10:33:38,778 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 11:21:13,750 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 11:21:14,137 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 11:21:41,203 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 11:21:41,204 - root - INFO - Base de datos: None
+2025-03-27 11:21:41,393 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 11:22:15,853 - root - ERROR - Excepción no capturada:
+Traceback (most recent call last):
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\main_window.py", line 321, in on_new_repair
+    dialog = FormReparaciones(self.reparacion_controller, parent=self)
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\reparaciones\form_reparacion.py", line 37, in __init__
+    self.initUI()
+    ~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\reparaciones\form_reparacion.py", line 107, in initUI
+    for camion in self.camiones:
+                  ^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not iterable
+2025-03-27 11:22:31,937 - root - ERROR - Excepción no capturada:
+Traceback (most recent call last):
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\main_window.py", line 321, in on_new_repair
+    dialog = FormReparaciones(self.reparacion_controller, parent=self)
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\reparaciones\form_reparacion.py", line 37, in __init__
+    self.initUI()
+    ~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\reparaciones\form_reparacion.py", line 107, in initUI
+    for camion in self.camiones:
+                  ^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not iterable
+2025-03-27 11:24:19,654 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 11:42:57,029 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 11:42:57,689 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 11:43:16,383 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 11:43:16,387 - root - INFO - Base de datos: None
+2025-03-27 11:43:16,532 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 11:47:45,164 - root - ERROR - Error al conectar a MongoDB: The resolution lifetime expired after 21.607 seconds: Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.
+2025-03-27 11:47:45,166 - root - ERROR - Error al conectar a la base de datos: The resolution lifetime expired after 21.607 seconds: Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.
+2025-03-27 11:48:20,535 - root - ERROR - No se pudo conectar a MongoDB: No replica set members found yet, Timeout: 10.0s, Topology Description: <TopologyDescription id: 67e58f5a6e1a1af403853908, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('cluster0-shard-00-00.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('cluster0-shard-00-01.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('cluster0-shard-00-02.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>]>
+2025-03-27 11:48:20,536 - root - ERROR - Error al conectar a la base de datos: No replica set members found yet, Timeout: 10.0s, Topology Description: <TopologyDescription id: 67e58f5a6e1a1af403853908, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('cluster0-shard-00-00.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('cluster0-shard-00-01.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('cluster0-shard-00-02.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>]>
+2025-03-27 11:48:43,982 - root - ERROR - No se pudo conectar a MongoDB: No replica set members found yet, Timeout: 10.0s, Topology Description: <TopologyDescription id: 67e58f719af6145cf1301a45, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('cluster0-shard-00-00.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('cluster0-shard-00-01.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('cluster0-shard-00-02.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>]>
+2025-03-27 11:48:43,983 - root - ERROR - Error al conectar a la base de datos: No replica set members found yet, Timeout: 10.0s, Topology Description: <TopologyDescription id: 67e58f719af6145cf1301a45, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('cluster0-shard-00-00.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('cluster0-shard-00-01.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('cluster0-shard-00-02.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>]>
+2025-03-27 11:50:01,236 - root - ERROR - Error al conectar a MongoDB: The resolution lifetime expired after 21.608 seconds: Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.
+2025-03-27 11:50:01,254 - root - ERROR - Error al conectar a la base de datos: The resolution lifetime expired after 21.608 seconds: Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.; Server Do53:172.16.50.161@53 answered The DNS operation timed out.; Server Do53:172.16.50.214@53 answered The DNS operation timed out.
+2025-03-27 11:50:50,519 - root - ERROR - No se pudo conectar a MongoDB: No replica set members match selector "Primary()", Timeout: 10.0s, Topology Description: <TopologyDescription id: 67e58ff0910e87ac7f1b1efd, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('cluster0-shard-00-00.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('cluster0-shard-00-01.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('cluster0-shard-00-02.un0zp.mongodb.net', 27017) server_type: RSSecondary, rtt: 3.2068857999984175>]>
+2025-03-27 11:50:50,522 - root - ERROR - Error al conectar a la base de datos: No replica set members match selector "Primary()", Timeout: 10.0s, Topology Description: <TopologyDescription id: 67e58ff0910e87ac7f1b1efd, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('cluster0-shard-00-00.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('cluster0-shard-00-01.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('cluster0-shard-00-02.un0zp.mongodb.net', 27017) server_type: RSSecondary, rtt: 3.2068857999984175>]>
+2025-03-27 12:06:31,909 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:06:32,024 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:06:41,063 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 12:06:41,064 - root - INFO - Base de datos: None
+2025-03-27 12:06:41,194 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 12:09:49,679 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:10:00,225 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:10:00,321 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:10:00,479 - root - ERROR - Excepción no capturada:
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 167, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 145, in main
+    login_dialog = LoginDialog()
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\login_dialog.py", line 28, in __init__
+    self.setup_ui()
+    ~~~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\login_dialog.py", line 98, in setup_ui
+    spacer = QWidget()
+             ^^^^^^^
+NameError: name 'QWidget' is not defined
+2025-03-27 12:11:52,059 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:11:52,156 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:12:38,693 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:12:43,238 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:12:43,345 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:12:48,250 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:13:02,718 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:13:02,817 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:13:13,826 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:13:19,965 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:13:20,062 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:15:18,773 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:15:23,799 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:15:23,894 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:15:28,787 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:16:03,227 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:16:03,323 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:16:10,022 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:16:22,307 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:16:22,405 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:17:01,051 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 12:17:01,060 - root - INFO - Base de datos: None
+2025-03-27 12:17:01,240 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 12:19:24,993 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:21:18,788 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:21:18,883 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:21:50,767 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 12:21:50,774 - root - INFO - Base de datos: None
+2025-03-27 12:21:50,914 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 12:29:00,554 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:30:48,934 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:30:49,031 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:31:00,097 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 12:31:00,098 - root - INFO - Base de datos: None
+2025-03-27 12:31:00,162 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 12:34:07,967 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:34:40,065 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:34:40,159 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:35:36,803 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 12:35:36,807 - root - INFO - Base de datos: None
+2025-03-27 12:35:36,912 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 12:38:13,554 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:38:18,498 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:38:18,597 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:38:24,577 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 12:38:24,581 - root - INFO - Base de datos: None
+2025-03-27 12:38:24,662 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 12:43:30,672 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:48:26,069 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:48:26,143 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:48:38,138 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 12:48:38,139 - root - INFO - Base de datos: None
+2025-03-27 12:48:38,320 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 12:51:23,409 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:51:29,916 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:51:30,010 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:53:08,446 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 12:53:08,448 - root - INFO - Base de datos: None
+2025-03-27 12:53:08,560 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 12:54:42,108 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:54:47,633 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:54:47,853 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:55:02,842 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 12:55:02,846 - root - INFO - Base de datos: None
+2025-03-27 12:55:02,948 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 12:58:24,433 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 12:59:15,447 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 12:59:15,553 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 12:59:26,528 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 12:59:26,529 - root - INFO - Base de datos: None
+2025-03-27 12:59:26,589 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:01:14,023 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:01:56,794 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:01:56,897 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:02:22,371 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:02:22,376 - root - INFO - Base de datos: None
+2025-03-27 13:02:22,448 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:03:02,092 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:04:26,703 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:04:26,805 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:04:37,602 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:04:37,603 - root - INFO - Base de datos: None
+2025-03-27 13:04:37,673 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:06:23,920 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:06:28,198 - root - ERROR - Excepción no capturada:
+Traceback (most recent call last):
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\dns\query.py", line 651, in _udp_recv
+    return sock.recvfrom(max_size)
+           ~~~~~~~~~~~~~^^^^^^^^^^
+BlockingIOError: [WinError 10035] A non-blocking socket operation could not be completed immediately
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 167, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 136, in main
+    db_connection = DatabaseConnection()
+  File "C:\Roy\gestion-reparaciones-camiones\src\database\connection.py", line 45, in __init__
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\database\connection.py", line 92, in connect
+    self.client = MongoClient(uri, serverSelectionTimeoutMS=10000)
+                  ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\pymongo\synchronous\mongo_client.py", line 784, in __init__
+    res = uri_parser.parse_uri(
+        entity,
+    ...<6 lines>...
+        srv_max_hosts=srv_max_hosts,
+    )
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\pymongo\uri_parser.py", line 558, in parse_uri
+    nodes = dns_resolver.get_hosts()
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\pymongo\srv_resolver.py", line 141, in get_hosts
+    _, nodes = self._get_srv_response_and_hosts(True)
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\pymongo\srv_resolver.py", line 120, in _get_srv_response_and_hosts
+    results = self._resolve_uri(encapsulate_errors)
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\pymongo\srv_resolver.py", line 106, in _resolve_uri
+    results = _resolve(
+        "_" + self.__srv + "._tcp." + self.__fqdn, "SRV", lifetime=self.__connect_timeout
+    )
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\pymongo\srv_resolver.py", line 52, in _resolve
+    return resolver.resolve(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\dns\resolver.py", line 1564, in resolve
+    return get_default_resolver().resolve(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        qname,
+        ^^^^^^
+    ...<7 lines>...
+        search,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\dns\resolver.py", line 1322, in resolve
+    response = nameserver.query(
+        request,
+    ...<3 lines>...
+        max_size=tcp,
+    )
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\dns\nameserver.py", line 108, in query
+    response = dns.query.udp(
+        request,
+    ...<9 lines>...
+        ignore_unexpected=True,
+    )
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\dns\query.py", line 873, in udp
+    (r, received_time) = receive_udp(
+                         ~~~~~~~~~~~^
+        s,
+        ^^
+    ...<9 lines>...
+        q,
+        ^^
+    )
+    ^
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\dns\query.py", line 764, in receive_udp
+    (wire, from_address) = _udp_recv(sock, 65535, expiration)
+                           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\dns\query.py", line 653, in _udp_recv
+    _wait_for_readable(sock, expiration)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\dns\query.py", line 241, in _wait_for_readable
+    _wait_for(s, True, False, True, expiration)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\site-packages\dns\query.py", line 236, in _wait_for
+    if not sel.select(timeout):
+           ~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 314, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\royep\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 305, in _select
+    r, w, x = select.select(r, w, w, timeout)
+              ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+2025-03-27 13:06:38,682 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:06:38,779 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:06:56,195 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:06:56,203 - root - INFO - Base de datos: None
+2025-03-27 13:06:56,276 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:08:20,527 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:08:25,437 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:08:25,532 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:08:32,747 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:08:32,748 - root - INFO - Base de datos: None
+2025-03-27 13:08:32,787 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:08:56,080 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:11:13,136 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:11:13,229 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:11:20,349 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:11:41,954 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:11:42,065 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:14:15,005 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:14:20,554 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:14:20,652 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:14:33,609 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:14:33,609 - root - INFO - Base de datos: None
+2025-03-27 13:14:33,882 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:18:23,024 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:18:33,839 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:18:33,939 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:18:42,905 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:18:42,908 - root - INFO - Base de datos: None
+2025-03-27 13:18:42,978 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:18:56,884 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:29:07,077 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:29:07,170 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:29:16,747 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:29:16,748 - root - INFO - Base de datos: None
+2025-03-27 13:29:16,844 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:29:32,795 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:31:45,555 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:31:45,657 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:31:53,964 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:31:53,967 - root - INFO - Base de datos: None
+2025-03-27 13:31:54,090 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:35:28,610 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:35:33,860 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:35:33,955 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:35:42,662 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:35:42,668 - root - INFO - Base de datos: None
+2025-03-27 13:35:42,743 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:35:43,451 - root - ERROR - Excepción no capturada:
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 167, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 151, in main
+    main_window = MainWindow(current_user)
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\main_window.py", line 42, in __init__
+    self.setupUI()
+    ~~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\main_window.py", line 138, in setupUI
+    self.reparaciones_widget = ListaReparaciones(self.reparacion_controller)
+                               ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\reparaciones\lista_reparaciones.py", line 30, in __init__
+    self.initUI()
+    ~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\reparaciones\lista_reparaciones.py", line 78, in initUI
+    self.clear_filter_button.setStyleSheet("background-color: #e1bee7; font-weight: bold; border-radius: 4px;")
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ListaReparaciones' object has no attribute 'clear_filter_button'
+2025-03-27 13:36:38,762 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:36:38,862 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:36:46,977 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:36:46,981 - root - INFO - Base de datos: None
+2025-03-27 13:36:47,028 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:39:33,848 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:39:38,287 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:39:38,388 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:39:46,698 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:39:46,700 - root - INFO - Base de datos: None
+2025-03-27 13:39:46,781 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:43:31,063 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:43:36,376 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:43:36,476 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:43:44,530 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:43:44,532 - root - INFO - Base de datos: None
+2025-03-27 13:43:44,600 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:43:53,613 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:44:11,108 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:44:11,204 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:44:18,117 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:44:18,119 - root - INFO - Base de datos: None
+2025-03-27 13:44:18,159 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 13:55:11,348 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 13:55:16,975 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 13:55:17,074 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 13:55:36,738 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 13:55:36,744 - root - INFO - Base de datos: None
+2025-03-27 13:55:36,821 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 14:01:06,202 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 14:01:11,076 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 14:01:11,176 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 14:01:18,431 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 14:01:18,433 - root - INFO - Base de datos: None
+2025-03-27 14:01:18,489 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 14:02:14,794 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 14:03:05,239 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 14:03:05,332 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 14:04:19,593 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 14:04:24,116 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 14:04:24,210 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 14:06:26,425 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 14:06:26,439 - root - INFO - Base de datos: None
+2025-03-27 14:06:26,613 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 14:06:35,456 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 14:07:55,815 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 14:07:55,923 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 14:08:02,077 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 14:08:02,078 - root - INFO - Base de datos: None
+2025-03-27 14:08:02,165 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 14:09:14,550 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 14:09:26,517 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 14:09:26,615 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 14:09:32,812 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 14:09:32,813 - root - INFO - Base de datos: None
+2025-03-27 14:09:32,869 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 14:09:39,000 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 14:10:59,993 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 14:11:00,088 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 14:11:07,498 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 14:11:07,504 - root - INFO - Base de datos: None
+2025-03-27 14:11:07,570 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 14:12:32,382 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 14:13:00,926 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 14:13:01,057 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 14:13:20,503 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 14:13:20,503 - root - INFO - Base de datos: None
+2025-03-27 14:13:20,579 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 14:13:41,303 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 14:14:23,423 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 14:14:23,517 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 14:14:30,387 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 14:14:30,388 - root - INFO - Base de datos: None
+2025-03-27 14:14:30,494 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 14:15:31,833 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 14:16:14,832 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 14:16:14,938 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 14:16:21,710 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 14:16:21,712 - root - INFO - Base de datos: None
+2025-03-27 14:16:21,949 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 14:17:11,224 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 14:17:15,313 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 14:17:15,406 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 14:17:21,132 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 14:17:21,134 - root - INFO - Base de datos: None
+2025-03-27 14:17:21,188 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 14:17:36,482 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 14:18:31,704 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 14:18:31,797 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 14:18:38,639 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 14:18:38,639 - root - INFO - Base de datos: None
+2025-03-27 14:18:38,760 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-27 14:19:17,013 - root - INFO - Conexión a MongoDB cerrada
+2025-03-27 17:09:41,751 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-27 17:09:42,373 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-27 17:11:43,547 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-27 17:11:43,554 - root - INFO - Base de datos: None
+2025-03-27 17:11:43,722 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-28 09:19:37,413 - root - ERROR - Error al obtener los camiones: cluster0-shard-00-01.un0zp.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: connectTimeoutMS: 20000.0ms)
+2025-03-28 09:19:49,261 - root - ERROR - ReparacionesDAO: Error al obtener todas las reparaciones: cluster0-shard-00-01.un0zp.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),cluster0-shard-00-02.un0zp.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),cluster0-shard-00-00.un0zp.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 10.0s, Topology Description: <TopologyDescription id: 67e5daae1a67e465f81a4b21, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('cluster0-shard-00-00.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('cluster0-shard-00-00.un0zp.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('cluster0-shard-00-01.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('cluster0-shard-00-01.un0zp.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('cluster0-shard-00-02.un0zp.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('cluster0-shard-00-02.un0zp.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-03-28 09:20:26,422 - root - INFO - Conexión a MongoDB cerrada
+2025-03-28 10:52:41,728 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 10:52:42,028 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 10:53:03,240 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 10:53:03,243 - root - INFO - Base de datos: None
+2025-03-28 10:53:03,245 - root - ERROR - Error al conectar a la base de datos: 'DatabaseConnection' object has no attribute 'cliente'
+2025-03-28 10:53:03,248 - root - ERROR - Excepción no capturada:
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 167, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 151, in main
+    main_window = MainWindow(current_user)
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\main_window.py", line 45, in __init__
+    self.preventiva_controller = PreventivaController()
+                                 ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\controllers\preventiva_controller.py", line 19, in __init__
+    self.preventivas_dao = PreventivasDAO()
+                           ~~~~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\database\preventivas_dao.py", line 23, in __init__
+    self.client = conn.cliente
+                  ^^^^^^^^^^^^
+AttributeError: 'DatabaseConnection' object has no attribute 'cliente'. Did you mean: 'client'?
+2025-03-28 10:53:36,495 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 10:53:36,618 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 10:53:55,697 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 10:53:55,699 - root - INFO - Base de datos: None
+2025-03-28 10:53:55,704 - root - ERROR - Error al conectar a la base de datos: 'DatabaseConnection' object has no attribute 'cliente'
+2025-03-28 10:53:55,705 - root - ERROR - Excepción no capturada:
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 167, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 151, in main
+    main_window = MainWindow(current_user)
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\main_window.py", line 45, in __init__
+    self.preventiva_controller = PreventivaController()
+                                 ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\controllers\preventiva_controller.py", line 19, in __init__
+    self.preventivas_dao = PreventivasDAO()
+                           ~~~~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\database\preventivas_dao.py", line 23, in __init__
+    self.client = conn.cliente
+                  ^^^^^^^^^^^^
+AttributeError: 'DatabaseConnection' object has no attribute 'cliente'. Did you mean: 'client'?
+2025-03-28 10:54:18,061 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 10:54:18,210 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 10:54:26,893 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 10:54:26,894 - root - INFO - Base de datos: None
+2025-03-28 10:54:26,895 - root - ERROR - Error al conectar a la base de datos: 'DatabaseConnection' object has no attribute 'cliente'
+2025-03-28 10:54:26,897 - root - ERROR - Excepción no capturada:
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 167, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 151, in main
+    main_window = MainWindow(current_user)
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\main_window.py", line 45, in __init__
+    self.preventiva_controller = PreventivaController()
+                                 ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\controllers\preventiva_controller.py", line 19, in __init__
+    self.preventivas_dao = PreventivasDAO()
+                           ~~~~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\database\preventivas_dao.py", line 23, in __init__
+    self.client = conn.cliente
+                  ^^^^^^^^^^^^
+AttributeError: 'DatabaseConnection' object has no attribute 'cliente'. Did you mean: 'client'?
+2025-03-28 10:57:46,295 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 10:57:46,439 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 10:57:56,228 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 10:57:56,229 - root - INFO - Base de datos: None
+2025-03-28 10:57:56,230 - root - ERROR - Error al conectar a la base de datos: 'DatabaseConnection' object has no attribute 'cliente'
+2025-03-28 10:57:56,231 - root - ERROR - Excepción no capturada:
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 167, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\main.py", line 151, in main
+    main_window = MainWindow(current_user)
+  File "C:\Roy\gestion-reparaciones-camiones\src\views\main_window.py", line 45, in __init__
+    self.preventiva_controller = PreventivaController()
+                                 ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\controllers\preventiva_controller.py", line 19, in __init__
+    self.preventivas_dao = PreventivasDAO()
+                           ~~~~~~~~~~~~~~^^
+  File "C:\Roy\gestion-reparaciones-camiones\src\database\preventivas_dao.py", line 23, in __init__
+    self.client = conn.cliente
+                  ^^^^^^^^^^^^
+AttributeError: 'DatabaseConnection' object has no attribute 'cliente'. Did you mean: 'client'?
+2025-03-28 11:08:56,333 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 11:08:56,468 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 11:09:04,113 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 11:09:04,114 - root - INFO - Base de datos: None
+2025-03-28 11:09:04,277 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-28 11:12:59,689 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 11:12:59,816 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 11:13:13,757 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 11:13:13,758 - root - INFO - Base de datos: None
+2025-03-28 11:13:13,881 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-28 11:16:17,731 - root - INFO - Conexión a MongoDB cerrada
+2025-03-28 11:26:26,562 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 11:26:26,661 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 11:26:38,332 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 11:26:38,333 - root - INFO - Base de datos: None
+2025-03-28 11:26:38,427 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-28 11:45:35,807 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 11:45:35,907 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 11:45:49,105 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 11:45:49,117 - root - INFO - Base de datos: None
+2025-03-28 11:45:49,265 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-28 11:46:06,230 - root - INFO - Conexión a MongoDB cerrada
+2025-03-28 11:46:19,751 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 11:46:19,849 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 11:46:35,958 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 11:46:35,961 - root - INFO - Base de datos: None
+2025-03-28 11:46:36,058 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-28 11:47:45,324 - root - INFO - Conexión a MongoDB cerrada
+2025-03-28 11:47:51,637 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 11:47:51,737 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 11:48:47,641 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 11:48:47,643 - root - INFO - Base de datos: None
+2025-03-28 11:48:47,748 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-28 11:51:27,734 - root - INFO - Conexión a MongoDB cerrada
+2025-03-28 12:02:28,461 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 12:02:28,575 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 12:05:47,527 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 12:05:47,532 - root - INFO - Base de datos: None
+2025-03-28 12:05:47,725 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-28 12:10:33,063 - root - INFO - Conexión a MongoDB cerrada
+2025-03-28 12:11:07,009 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 12:11:07,110 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 12:11:14,564 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 12:11:14,577 - root - INFO - Base de datos: None
+2025-03-28 12:11:14,673 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-28 12:12:45,922 - root - INFO - Conexión a MongoDB cerrada
+2025-03-28 12:14:04,209 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 12:14:04,325 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 12:14:12,660 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 12:14:12,663 - root - INFO - Base de datos: None
+2025-03-28 12:14:12,769 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-28 12:19:53,579 - root - INFO - Conexión a MongoDB cerrada
+2025-03-28 12:24:49,878 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 12:24:50,287 - root - INFO - Colección 'preventivas' creada
+2025-03-28 12:24:50,699 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 12:24:57,856 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 12:24:57,857 - root - INFO - Base de datos: None
+2025-03-28 12:24:58,030 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-28 12:25:19,167 - root - INFO - Conexión a MongoDB cerrada
+2025-03-28 12:37:43,640 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 12:37:43,741 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 12:37:50,958 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 12:37:50,959 - root - INFO - Base de datos: None
+2025-03-28 12:37:51,068 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones
+2025-03-28 12:39:51,797 - root - INFO - Conexión a MongoDB cerrada
+2025-03-28 12:45:32,336 - root - INFO - Conexión establecida a MongoDB Atlas en cluster0.un0zp.mongodb.net
+2025-03-28 12:45:32,439 - root - INFO - Conexión a la base de datos establecida correctamente
+2025-03-28 12:45:43,652 - root - INFO - Conexión establecida a MongoDB: None
+2025-03-28 12:45:43,653 - root - INFO - Base de datos: None
+2025-03-28 12:45:43,754 - root - INFO - ReparacionesDAO: Conexión establecida a la colección de reparaciones

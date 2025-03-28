@@ -116,7 +116,7 @@ class DatabaseConnection:
         """Verifica y crea las colecciones necesarias si no existen"""
         try:
             # Lista de colecciones que se van a verificar/crear
-            collections = ['mecanicos', 'camiones', 'reparaciones', 'usuarios']
+            collections = ['mecanicos', 'camiones', 'reparaciones', 'usuarios', 'preventivas']
             
             # Obtener lista de colecciones existentes
             existing_collections = self.db.list_collection_names()
@@ -139,6 +139,10 @@ class DatabaseConnection:
                         self.db[collection_name].create_index([('id_mecanico', 1)])
                     elif collection_name == 'usuarios':
                         self.db[collection_name].create_index([('username', 1)], unique=True)
+                    elif collection_name == 'preventivas':
+                        self.db[collection_name].create_index([('matricula', 1)])
+                        self.db[collection_name].create_index([('estado', 1)])
+                        self.db[collection_name].create_index([('nivel_urgencia', 1)])
             
         except Exception as e:
             logging.error(f"Error al verificar/crear colecciones: {str(e)}")
@@ -172,3 +176,7 @@ class DatabaseConnection:
     def get_usuarios_collection(self):
         """Obtiene la colección de usuarios"""
         return self.get_collection("usuarios")
+    
+    def get_preventivas_collection(self):
+        """Obtiene la colección de preventivas"""
+        return self.get_collection("preventivas")

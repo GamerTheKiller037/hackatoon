@@ -78,9 +78,9 @@ class DashboardWidget(QWidget):
         # Título
         title_label = QLabel("Panel de Control - Sistema de Gestión de Reparaciones")
         title_label.setAlignment(Qt.AlignCenter)
-        title_label.setFont(QFont("Arial", 18, QFont.Bold))
+        title_label.setFont(QFont("Arial", 30, QFont.Bold))  # Aumentado de 18 a 30
         # Estilo para el título (sutilmente morado)
-        title_label.setStyleSheet("color: #6a0dad; margin-bottom: 10px;")
+        title_label.setStyleSheet("color: #6a0dad; margin-bottom: 10px; font-size: 30px;")
         main_layout.addWidget(title_label)
         
         # Espaciador
@@ -130,8 +130,8 @@ class DashboardWidget(QWidget):
         
         # Título de sección
         activity_title = QLabel("Actividad Reciente")
-        activity_title.setFont(QFont("Arial", 16, QFont.Bold))
-        activity_title.setStyleSheet("margin-top: 15px; margin-bottom: 8px;")
+        activity_title.setFont(QFont("Arial", 26, QFont.Bold))  # Aumentado de 16 a 26
+        activity_title.setStyleSheet("margin-top: 15px; margin-bottom: 8px; font-size: 2px") # Aumento de tamaño
         activity_layout.addWidget(activity_title)
         
         # Crear área con scroll para actividades recientes
@@ -181,61 +181,6 @@ class DashboardWidget(QWidget):
         
         main_layout.addLayout(activity_layout)
         
-        # Botones de acción
-        button_layout = QHBoxLayout()
-        button_layout.setSpacing(12)  # Espaciado entre botones
-        
-        self.nuevo_camion_btn = QPushButton("Nuevo Camión")
-        self.nuevo_camion_btn.setStyleSheet("""
-            QPushButton {
-                background-color: #4a86e8;
-                color: white;
-                font-weight: bold;
-                padding: 8px 16px;
-                border: none;
-            }
-            QPushButton:hover {
-                background-color: #3a76d8;
-            }
-        """)
-        self.nuevo_camion_btn.clicked.connect(self.on_nuevo_camion)
-        button_layout.addWidget(self.nuevo_camion_btn)
-        
-        self.nueva_reparacion_btn = QPushButton("Nueva Reparación")
-        self.nueva_reparacion_btn.setStyleSheet("""
-            QPushButton {
-                background-color: #4a86e8;
-                color: white;
-                font-weight: bold;
-                padding: 8px 16px;
-                border: none;
-            }
-            QPushButton:hover {
-                background-color: #3a76d8;
-            }
-        """)
-        self.nueva_reparacion_btn.clicked.connect(self.on_nueva_reparacion)
-        button_layout.addWidget(self.nueva_reparacion_btn)
-        
-        # Botón de actualizar
-        self.actualizar_btn = QPushButton("Actualizar Datos")
-        self.actualizar_btn.setStyleSheet("""
-            QPushButton {
-                background-color: #f0f0f0;
-                color: #333;
-                font-weight: bold;
-                padding: 8px 16px;
-                border: 1px solid #d0d0d0;
-            }
-            QPushButton:hover {
-                background-color: #e0e0e0;
-            }
-        """)
-        self.actualizar_btn.clicked.connect(self.refresh_data)
-        button_layout.addWidget(self.actualizar_btn)
-        
-        main_layout.addLayout(button_layout)
-        
         # Fecha y hora actual
         self.fecha_label = QLabel()
         self.fecha_label.setAlignment(Qt.AlignRight)
@@ -265,14 +210,14 @@ class DashboardWidget(QWidget):
         
         title_label = QLabel(title)
         title_label.setAlignment(Qt.AlignCenter)
-        title_label.setFont(QFont("Arial", 14))  # Tamaño de fuente aumentado
-        title_label.setStyleSheet("color: white; font-weight: bold;")
+        title_label.setFont(QFont("Arial", 16))  # Aumentado de 14 a 16
+        title_label.setStyleSheet("color: white; font-weight: bold; font-size: 16px;")
         layout.addWidget(title_label)
         
         value_label = QLabel(value)
         value_label.setAlignment(Qt.AlignCenter)
-        value_label.setFont(QFont("Arial", 36, QFont.Bold))  # Tamaño de fuente aumentado
-        value_label.setStyleSheet("color: white; margin-top: 5px;")
+        value_label.setFont(QFont("Arial", 40, QFont.Bold))  # Aumentado de 36 a 40
+        value_label.setStyleSheet("color: white; margin-top: 5px; font-size: 40px;")
         layout.addWidget(value_label)
         
         return widget

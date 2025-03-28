@@ -1,25 +1,6 @@
 {
     "reparaciones": [
         {
-            "anio": 2023,
-            "camion_id": "67e230682d2b3a9078a7b2a2",
-            "costo_mano_obra": 0.0,
-            "costo_repuestos": 0.0,
-            "diagnostico": "asdasd",
-            "estado": "Reparado",
-            "fecha_actualizacion": "2025-03-26 21:52:56",
-            "fecha_creacion": "2025-03-26 21:09:00",
-            "fecha_entrega_estimada": "2025-04-02",
-            "fecha_ingreso": "2025-03-26",
-            "id": 5,
-            "matricula": "9889765",
-            "mecanico_id": "67e4bdf9399410d864d19bd7",
-            "modelo": "holaa",
-            "notas": "",
-            "problema": "asdad",
-            "total": 0.0
-        },
-        {
             "camion_id": "67e230682d2b3a9078a7b2a2",
             "matricula": "9889765",
             "modelo": "holaa",
@@ -28,15 +9,33 @@
             "fecha_ingreso": "2025-03-27",
             "fecha_entrega_estimada": "2025-04-03",
             "estado": "En Espera",
-            "problema": "falla",
-            "diagnostico": "flla",
+            "problema": "asdasd",
+            "diagnostico": "asdasd",
             "costo_repuestos": 0.0,
             "costo_mano_obra": 0.0,
             "total": 0.0,
-            "notas": "dificikikalsda",
-            "id": 6,
-            "fecha_creacion": "2025-03-27 10:11:16"
+            "notas": "asdas",
+            "id": 8,
+            "fecha_creacion": "2025-03-27 12:56:50"
+        },
+        {
+            "camion_id": "67e3658ae521e96db4572584",
+            "matricula": "hola2",
+            "modelo": "uwu37",
+            "anio": 2023,
+            "mecanico_id": "67e56dc40275e86d4e17aaa5",
+            "fecha_ingreso": "2025-03-28",
+            "fecha_entrega_estimada": "2025-04-04",
+            "estado": "En Espera",
+            "problema": "ol",
+            "diagnostico": "lo",
+            "costo_repuestos": 0.0,
+            "costo_mano_obra": 0.0,
+            "total": 0.0,
+            "notas": "",
+            "id": 9,
+            "fecha_creacion": "2025-03-28 12:47:03"
         }
     ],
-    "ultimo_id": 6
+    "ultimo_id": 9
 }

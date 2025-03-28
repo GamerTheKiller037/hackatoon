@@ -12,15 +12,15 @@ from PyQt5.QtWidgets import (QMainWindow, QTabWidget, QWidget, QVBoxLayout,
                             QHBoxLayout, QAction, QToolBar, QStatusBar, QLabel, 
                             QMessageBox, QFileDialog, QDesktopWidget, QPushButton)
 from PyQt5.QtCore import Qt, QSize, QDateTime, pyqtSignal, pyqtSlot
-from PyQt5.QtGui import QIcon, QFont, QPixmap
+from PyQt5.QtGui import QIcon, QFont, QPixmap, QColor
 from PyQt5.QtPrintSupport import QPrinter, QPrintDialog, QPrintPreviewDialog
 
 from models.usuario import Usuario
 from controllers.reparacion_controller import ReparacionController
 from controllers.camion_controller import CamionController
-from controllers.mecanico_controller import MecanicoController  # Agregar importación
+from controllers.mecanico_controller import MecanicoController
 from views.camiones.lista_camiones import ListaCamionesWidget
-from views.mecanicos.lista_mecanicos import ListaMecanicosWidget  # Agregar importación
+from views.mecanicos.lista_mecanicos import ListaMecanicosWidget
 from views.reparaciones.lista_reparaciones import ListaReparaciones
 from views.dashboard import DashboardWidget
 
@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
         self.current_user = current_user
         self.reparacion_controller = ReparacionController()
         self.camion_controller = CamionController()
-        self.mecanico_controller = MecanicoController()  # Agregar controlador
+        self.mecanico_controller = MecanicoController()
         
         self.setupUI()
         self.centerOnScreen()
@@ -50,11 +50,30 @@ class MainWindow(QMainWindow):
             self.statusBar.showMessage(
                 f"Bienvenido, {self.current_user.nombre_completo()} ({self.current_user.rol})"
             )
+            
+        # Aplicar estilo para la barra de título
+        self.setStyleSheet("""
+            QMainWindow {
+                background-color: white;
+            }
+            QMainWindow::title {
+                background-color: #6a1b9a;
+                color: white;
+            }
+            QStatusBar {
+                font-size: 12px;
+            }
+        """)
     
     def setupUI(self):
         """Configura la interfaz de usuario"""
         self.setWindowTitle("Sistema de Gestión de Reparaciones de Camiones")
-        self.setMinimumSize(1500, 900)
+        self.setMinimumSize(1600, 900)  # Tamaño mínimo aumentado
+        
+        # Establecer fuente más grande
+        font = QFont()
+        font.setPointSize(11)
+        self.setFont(font)
         
         # Crear menú
         self.createMenu()
@@ -69,6 +88,21 @@ class MainWindow(QMainWindow):
         
         # Widget central con pestañas
         self.tabs = QTabWidget()
+        self.tabs.setStyleSheet("""
+            QTabWidget::pane {
+                border: 1px solid #d0d0d0;
+            }
+            QTabBar::tab {
+                background-color: #f0f0f0;
+                padding: 10px 15px;
+                margin-right: 2px;
+                font-size: 13px;
+            }
+            QTabBar::tab:selected {
+                background-color: #b26af3;
+                color: white;
+            }
+        """)
         self.tabs.currentChanged.connect(self.on_tab_changed)
         
         # Pestaña del panel de control (dashboard)
@@ -92,7 +126,7 @@ class MainWindow(QMainWindow):
         if hasattr(self.camiones_widget, 'camion_seleccionado'):
             self.camiones_widget.camion_seleccionado.connect(self.on_camion_seleccionado)
         
-        # Pestaña de mecánicos (NUEVO)
+        # Pestaña de mecánicos
         self.mecanicos_widget = ListaMecanicosWidget(self.current_user)
         self.tabs.addTab(self.mecanicos_widget, "Mecánicos")
         
@@ -110,6 +144,10 @@ class MainWindow(QMainWindow):
         
         # Configurar el widget central
         self.setCentralWidget(self.tabs)
+    
+
+
+
     
     def create_admin_tab(self):
         """Crea la pestaña de administración"""
@@ -463,7 +501,7 @@ class MainWindow(QMainWindow):
         current_index = self.tabs.currentIndex()
         
         if current_index == 1:  # Pestaña de camiones
-            # Si el widget de camiones implementa una función para imprimir
+            # Si el widget de camiones implementa una función para imprimir Panel de Control
             if hasattr(self.camiones_widget, 'print_data'):
                 self.camiones_widget.print_data(printer)
             else:

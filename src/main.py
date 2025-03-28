@@ -11,7 +11,7 @@ import os
 import logging
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont
 import qdarkstyle
 
 # Agregar directorio raíz al path para importaciones
@@ -48,8 +48,83 @@ def main():
     app.setApplicationName("Gestión de Reparaciones de Camiones")
     app.setOrganizationName("MiEmpresa")
     
-    # Establecer estilo oscuro (opcional, se puede cambiar por preferencia del usuario)
-    # app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    # Configurar la fuente global para hacerla más grande y legible
+    font = QFont("Segoe UI", 10)  # Fuente más grande (antes era 9)
+    app.setFont(font)
+    
+    # Establecer hoja de estilo global
+    app.setStyleSheet("""
+        QMainWindow::title {
+            background-color: #6a1b9a;
+            color: white;
+        }
+        
+        QMenuBar {
+            background-color: #6a1b9a;
+            color: white;
+            font-size: 11pt;
+        }
+        
+        QMenuBar::item {
+            background-color: transparent;
+            padding: 6px 10px;
+        }
+        
+        QMenuBar::item:selected {
+            background-color: #8e24aa;
+        }
+        
+        QMenu {
+            background-color: #f5f5f5;
+            font-size: 11pt;
+        }
+        
+        QMenu::item:selected {
+            background-color: #e1bee7;
+        }
+        
+        QTabWidget::pane {
+            border: 1px solid #d0d0d0;
+        }
+        
+        QTabBar::tab {
+            background-color: #f0f0f0;
+            padding: 8px 12px;
+            margin-right: 2px;
+            font-size: 11pt;
+        }
+        
+        QTabBar::tab:selected {
+            background-color: #6a1b9a;
+            color: white;
+        }
+        
+        QTableWidget {
+            font-size: 11pt;
+        }
+        
+        QHeaderView::section {
+            background-color: #6a1b9a;
+            color: white;
+            padding: 6px;
+            font-size: 11pt;
+            font-weight: bold;
+        }
+        
+        QPushButton {
+            padding: 6px 12px;
+            font-size: 11pt;
+        }
+        
+        QLineEdit, QComboBox, QSpinBox, QDateEdit {
+            padding: 6px;
+            font-size: 11pt;
+        }
+        
+        QLabel {
+            font-size: 11pt;
+        }
+    """)
     
     # Configurar ícono de la aplicación
     icon_path = os.path.join(os.path.dirname(__file__), '..', 'resources', 'icons', 'app_icon.png')
@@ -87,17 +162,6 @@ def main():
         # El usuario canceló el inicio de sesión
         db_connection.close()
         return 0
-with open('src/main.py', 'r', encoding='utf-8') as f:
-        lines = f.readlines()
-
-for i, line in enumerate(lines):
-    if 'main_window = MainWindow(current_user)' in line:
-            lines[i] = line.replace('current_user=current_user', 'current_user')
-
-with open('src/main.py', 'w', encoding='utf-8') as f:
-    f.writelines(lines)
-
-print("Archivo main.py corregido para usar parámetro posicional en lugar de con nombre.")
 
 if __name__ == "__main__":
     sys.exit(main())

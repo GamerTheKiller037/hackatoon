@@ -37,7 +37,7 @@ class ListaReparaciones(QWidget):
         
         # Título
         title_label = QLabel("Gestión de Reparaciones")
-        title_label.setStyleSheet("font-size: 18px; font-weight: bold; color: #3f51b5;")
+        title_label.setStyleSheet("font-size: 18px; font-weight: bold; color: #6a1b9a;")
         title_label.setAlignment(Qt.AlignCenter)
         main_layout.addWidget(title_label)
         
@@ -75,6 +75,7 @@ class ListaReparaciones(QWidget):
         
         # Botón para limpiar filtros
         self.btn_limpiar_filtros = QPushButton("Limpiar Filtros")
+        self.btn_limpiar_filtros.setStyleSheet("background-color: #e1bee7; font-weight: bold; border-radius: 4px;")
         self.btn_limpiar_filtros.clicked.connect(self.limpiarFiltros)
         filter_layout.addWidget(self.btn_limpiar_filtros)
         
@@ -84,7 +85,7 @@ class ListaReparaciones(QWidget):
         action_layout = QHBoxLayout()
         
         self.btn_nueva = QPushButton("Nueva Reparación")
-        self.btn_nueva.setStyleSheet("background-color: #4caf50; color: white; font-weight: bold;")
+        self.btn_nueva.setStyleSheet("background-color: #4caf50; color: white; font-weight: bold; border-radius: 4px; padding: 5px;")
         self.btn_nueva.clicked.connect(self.nuevaReparacion)
         action_layout.addWidget(self.btn_nueva)
         
@@ -101,7 +102,7 @@ class ListaReparaciones(QWidget):
         action_layout.addWidget(self.btn_cambiar_estado)
         
         self.btn_eliminar = QPushButton("Eliminar")
-        self.btn_eliminar.setStyleSheet("background-color: #f44336; color: white;")
+        self.btn_eliminar.setStyleSheet("background-color: #f44336; color: white; font-weight: bold;border-radius: 4px; padding: 5px;")
         self.btn_eliminar.clicked.connect(self.eliminarReparacion)
         action_layout.addWidget(self.btn_eliminar)
         

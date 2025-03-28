@@ -5,8 +5,9 @@ Formulario para crear o editar un mecánico.
 import logging
 from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, 
                            QLineEdit, QComboBox, QPushButton, QMessageBox,
-                           QFormLayout, QDialogButtonBox)
+                           QFormLayout, QDialogButtonBox, QFrame)
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont
 
 from database.mecanicos_dao import MecanicosDAO
 from models.mecanico import Mecanico
@@ -38,45 +39,90 @@ class FormMecanicoDialog(QDialog):
     
     def setup_ui(self):
         """Configura la interfaz de usuario"""
-        self.setMinimumWidth(400)
+        self.setMinimumWidth(500)  # Aumentar ancho mínimo
+        self.setMinimumHeight(400)  # Aumentar alto mínimo
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
+        
+        # Establecer una fuente más grande para todo el diálogo
+        font = QFont()
+        font.setPointSize(12)
+        self.setFont(font)
         
         # Layout principal
         main_layout = QVBoxLayout(self)
         main_layout.setSpacing(20)
+        main_layout.setContentsMargins(20, 20, 20, 20)  # Márgenes más grandes
+        
+        # Barra superior morada 
+        header = QFrame()
+        header.setStyleSheet("background-color: #6a1b9a; min-height: 50px;")
+        header_layout = QVBoxLayout(header)
+        
+        # Título en la barra morada
+        title_label = QLabel("Información del Mecánico")
+        title_label.setStyleSheet("color: white; font-size: 20px; font-weight: bold;")
+        title_label.setAlignment(Qt.AlignCenter)
+        header_layout.addWidget(title_label)
+        
+        main_layout.addWidget(header)
         
         # Formulario
         form_layout = QFormLayout()
         form_layout.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
         form_layout.setLabelAlignment(Qt.AlignRight)
         form_layout.setFormAlignment(Qt.AlignLeft)
+        form_layout.setVerticalSpacing(15)  # Más espacio entre campos
+        
+        # Estilo para las etiquetas del formulario
+        label_style = "font-size: 18px; font-weight: bold;"
         
         # Campo: Nombre
+        label_nombre = QLabel("Nombre:")
+        label_nombre.setStyleSheet(label_style)
         self.nombre_input = QLineEdit()
         self.nombre_input.setMaxLength(50)
         self.nombre_input.setPlaceholderText("Ingrese el nombre")
-        form_layout.addRow("Nombre:", self.nombre_input)
+        self.nombre_input.setMinimumHeight(35)  # Altura mínima aumentada
+        form_layout.addRow(label_nombre, self.nombre_input)
         
         # Campo: Apellidos
+        label_apellidos = QLabel("Apellidos:")
+        label_apellidos.setStyleSheet(label_style)
         self.apellidos_input = QLineEdit()
         self.apellidos_input.setMaxLength(100)
         self.apellidos_input.setPlaceholderText("Ingrese los apellidos")
-        form_layout.addRow("Apellidos:", self.apellidos_input)
+        self.apellidos_input.setMinimumHeight(35)  # Altura mínima aumentada
+        form_layout.addRow(label_apellidos, self.apellidos_input)
         
         # Campo: Actividad
+        label_actividad = QLabel("Actividad:")
+        label_actividad.setStyleSheet(label_style)
         self.actividad_input = QComboBox()
+        self.actividad_input.setMinimumHeight(35)  # Altura mínima aumentada
         for actividad in Mecanico.ACTIVIDADES_VALIDAS:
             self.actividad_input.addItem(actividad)
-        form_layout.addRow("Actividad:", self.actividad_input)
+        form_layout.addRow(label_actividad, self.actividad_input)
         
         main_layout.addLayout(form_layout)
         
         # Botones
-        button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        button_box.accepted.connect(self.accept)
-        button_box.rejected.connect(self.reject)
+        button_layout = QHBoxLayout()
+        button_layout.setSpacing(15)  # Más espacio entre botones
         
-        main_layout.addWidget(button_box)
+        self.btn_guardar = QPushButton("Guardar")
+        self.btn_guardar.setMinimumHeight(40)  # Altura mínima aumentada
+        self.btn_guardar.setStyleSheet("background-color: #4caf50; color: white; font-weight: bold; padding: 8px 16px; font-size: 14px; border-radius: 4px;")
+        self.btn_guardar.clicked.connect(self.accept)
+        
+        self.btn_cancelar = QPushButton("Cancelar")
+        self.btn_cancelar.setMinimumHeight(40)  # Altura mínima aumentada
+        self.btn_cancelar.setStyleSheet("background-color: #f44336; color: white; font-weight: bold; padding: 8px 16px; font-size: 14px; border-radius: 4px;")
+        self.btn_cancelar.clicked.connect(self.reject)
+        
+        button_layout.addWidget(self.btn_guardar)
+        button_layout.addWidget(self.btn_cancelar)
+        
+        main_layout.addLayout(button_layout)
     
     def load_mecanico_data(self):
         """Carga los datos del mecánico en el formulario"""
@@ -174,25 +220,3 @@ class FormMecanicoDialog(QDialog):
                 "Error", 
                 f"Ha ocurrido un error al guardar el mecánico: {str(e)}"
             )
-
-if __name__ == "__main__":
-    # Prueba del diálogo
-    import sys
-    from PyQt5.QtWidgets import QApplication
-    
-    app = QApplication(sys.argv)
-    
-    # Prueba de creación
-    dialog = FormMecanicoDialog()
-    if dialog.exec_():
-        print("Mecánico creado")
-    
-    # Prueba de edición
-    mecanico = Mecanico(
-        nombre="Juan",
-        apellidos="Pérez González",
-        actividad="Sin actividad"
-    )
-    dialog = FormMecanicoDialog(mecanico=mecanico)
-    if dialog.exec_():
-        print("Mecánico actualizado")

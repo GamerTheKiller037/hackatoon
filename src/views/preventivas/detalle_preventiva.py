@@ -3,26 +3,28 @@ from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QFormLayout,
                            QTabWidget, QWidget, QGroupBox, QFrame)
 from PyQt5.QtCore import QDate, Qt
 from PyQt5.QtGui import QFont, QColor
-from models.camion import Camion
-from database.camiones_dao import CamionesDAO
-from src.controllers.reparacion_controller import ReparacionController
+from models.preventiva import Preventiva
+from database.preventivas_dao import PreventivasDAO
+from controllers.reparacion_controller import ReparacionController
 from bson import ObjectId
 import importlib
+import logging
 
-class DetalleCamionDialog(QDialog):
-    def __init__(self, camion, parent=None):
+class DetallePreventiva(QDialog):
+    def __init__(self, preventiva, parent=None):
         """
-        Diálogo para mostrar y editar los detalles de un camión
+        Diálogo para mostrar y editar los detalles de una tarea preventiva
         
         Args:
-            camion: Objeto Camion a mostrar
+            preventiva: Objeto Preventiva a mostrar
             parent: Widget padre
         """
         super().__init__(parent)
-        self.camion = camion
-        self.camiones_dao = CamionesDAO()
-        self.estado_anterior = camion.estado
-        self.setWindowTitle(f"Detalles del Camión - {camion.matricula}")
+        self.preventiva = preventiva
+        self.preventivas_dao = PreventivasDAO()
+        self.estado_anterior = preventiva.estado
+        self.nivel_urgencia_anterior = preventiva.nivel_urgencia
+        self.setWindowTitle(f"Detalles de Mantenimiento Preventivo - {preventiva.matricula}")
         self.resize(600, 500)  # Tamaño aumentado
         
         # Establecer fuente más grande para todo el diálogo
@@ -46,7 +48,7 @@ class DetalleCamionDialog(QDialog):
         header_layout.setAlignment(Qt.AlignCenter)
         
         # Título en la barra morada
-        title_label = QLabel(f"Información del Camión")
+        title_label = QLabel(f"Información del Mantenimiento Preventivo")
         title_label.setStyleSheet("color: white; font-size: 18px; font-weight: bold;")
         title_label.setAlignment(Qt.AlignCenter)
         header_layout.addWidget(title_label)
@@ -89,31 +91,31 @@ class DetalleCamionDialog(QDialog):
         value_style = "font-size: 12px;"
         
         # Matrícula
-        matricula_label = QLabel(self.camion.matricula)
+        matricula_label = QLabel(self.preventiva.matricula)
         matricula_label.setStyleSheet(value_style)
         matricula_label_title = QLabel("Matrícula:")
         matricula_label_title.setStyleSheet(label_style)
         form_layout.addRow(matricula_label_title, matricula_label)
         
         # Modelo
-        modelo_label = QLabel(self.camion.modelo)
+        modelo_label = QLabel(self.preventiva.modelo)
         modelo_label.setStyleSheet(value_style)
         modelo_label_title = QLabel("Modelo:")
         modelo_label_title.setStyleSheet(label_style)
         form_layout.addRow(modelo_label_title, modelo_label)
         
-        # Año
-        año_label = QLabel(str(self.camion.año))
-        año_label.setStyleSheet(value_style)
-        año_label_title = QLabel("Año:")
-        año_label_title.setStyleSheet(label_style)
-        form_layout.addRow(año_label_title, año_label)
+        # Tipo
+        tipo_label = QLabel(self.preventiva.tipo)
+        tipo_label.setStyleSheet(value_style)
+        tipo_label_title = QLabel("Tipo:")
+        tipo_label_title.setStyleSheet(label_style)
+        form_layout.addRow(tipo_label_title, tipo_label)
         
         # Estado (editable)
         self.combo_estado = QComboBox()
         self.combo_estado.setStyleSheet("padding: 5px; font-size: 12px;")
-        self.combo_estado.addItems(Camion.ESTADOS_VALIDOS)
-        index = self.combo_estado.findText(self.camion.estado)
+        self.combo_estado.addItems(Preventiva.ESTADOS_VALIDOS)
+        index = self.combo_estado.findText(self.preventiva.estado)
         if index >= 0:
             self.combo_estado.setCurrentIndex(index)
         # Conectar el evento de cambio en el combobox
@@ -123,17 +125,33 @@ class DetalleCamionDialog(QDialog):
         estado_label_title.setStyleSheet(label_style)
         form_layout.addRow(estado_label_title, self.combo_estado)
         
+        # Nivel de urgencia (editable)
+        self.combo_urgencia = QComboBox()
+        self.combo_urgencia.setStyleSheet("padding: 5px; font-size: 12px;")
+        self.combo_urgencia.addItems(Preventiva.NIVELES_URGENCIA)
+        index = self.combo_urgencia.findText(self.preventiva.nivel_urgencia)
+        if index >= 0:
+            self.combo_urgencia.setCurrentIndex(index)
+        
+        urgencia_label_title = QLabel("Nivel de urgencia:")
+        urgencia_label_title.setStyleSheet(label_style)
+        form_layout.addRow(urgencia_label_title, self.combo_urgencia)
+        
         # Fecha de registro
-        fecha_registro_label = QLabel(self.camion.fecha_registro.strftime("%d/%m/%Y %H:%M"))
+        fecha_registro_label = QLabel(self.preventiva.fecha_registro.strftime("%d/%m/%Y %H:%M"))
         fecha_registro_label.setStyleSheet(value_style)
         fecha_registro_label_title = QLabel("Fecha de registro:")
         fecha_registro_label_title.setStyleSheet(label_style)
         form_layout.addRow(fecha_registro_label_title, fecha_registro_label)
         
-        # Última actualización
-        ultima_actualizacion_label = QLabel(self.camion.ultima_actualizacion.strftime("%d/%m/%Y %H:%M"))
+        # Última actualización de reparación
+        ultima_act_str = "Sin actualizaciones"
+        if self.preventiva.ultima_actualizacion_reparacion:
+            ultima_act_str = self.preventiva.ultima_actualizacion_reparacion.strftime("%d/%m/%Y %H:%M")
+        
+        ultima_actualizacion_label = QLabel(ultima_act_str)
         ultima_actualizacion_label.setStyleSheet(value_style)
-        ultima_act_label_title = QLabel("Última actualización:")
+        ultima_act_label_title = QLabel("Última actualización de reparación:")
         ultima_act_label_title.setStyleSheet(label_style)
         form_layout.addRow(ultima_act_label_title, ultima_actualizacion_label)
         
@@ -151,44 +169,44 @@ class DetalleCamionDialog(QDialog):
         # En un entorno real, estos datos vendrían de la base de datos
         total_reparaciones = 0  # Obtener desde la base de datos
         reparaciones_activas = 0  # Obtener desde la base de datos
-        ultima_reparacion = "Sin reparaciones"  # Obtener desde la base de datos
+        ultima_reparacion = "Sin actualizaciones"  # Obtener desde la base de datos
         
         # Total de reparaciones
         total_rep_label = QLabel(str(total_reparaciones))
         total_rep_label.setStyleSheet(value_style)
-        total_rep_label_title = QLabel("Total de reparaciones:")
+        total_rep_label_title = QLabel("Total de actualizaciones:")
         total_rep_label_title.setStyleSheet(label_style)
         stats_layout.addRow(total_rep_label_title, total_rep_label)
         
         # Reparaciones activas
         rep_activas_label = QLabel(str(reparaciones_activas))
         rep_activas_label.setStyleSheet(value_style)
-        rep_activas_label_title = QLabel("Reparaciones activas:")
+        rep_activas_label_title = QLabel("Actualizaciones pendientes:")
         rep_activas_label_title.setStyleSheet(label_style)
         stats_layout.addRow(rep_activas_label_title, rep_activas_label)
         
         # Última reparación
         ultima_rep_label = QLabel(ultima_reparacion)
         ultima_rep_label.setStyleSheet(value_style)
-        ultima_rep_label_title = QLabel("Última reparación:")
+        ultima_rep_label_title = QLabel("Última actualización:")
         ultima_rep_label_title.setStyleSheet(label_style)
         stats_layout.addRow(ultima_rep_label_title, ultima_rep_label)
         
         info_layout.addWidget(stats_group)
         
-        # Pestaña de Historial de Reparaciones
+        # Pestaña de Historial de Actualizaciones de Reparaciones
         historial_tab = QWidget()
         historial_layout = QVBoxLayout(historial_tab)
         
-        # Implementar historial de reparaciones aquí
-        historial_placeholder = QLabel("No hay reparaciones para mostrar")
+        # Implementar historial de actualizaciones de reparaciones aquí
+        historial_placeholder = QLabel("No hay actualizaciones de reparaciones para mostrar")
         historial_placeholder.setAlignment(Qt.AlignCenter)
         historial_placeholder.setStyleSheet("font-size: 13px; color: gray;")
         historial_layout.addWidget(historial_placeholder)
         
         # Añadir pestañas al widget
         tab_widget.addTab(info_tab, "Información General")
-        tab_widget.addTab(historial_tab, "Historial de Reparaciones")
+        tab_widget.addTab(historial_tab, "Historial de Actualizaciones de Reparaciones")
         
         main_layout.addWidget(tab_widget)
         
@@ -214,61 +232,49 @@ class DetalleCamionDialog(QDialog):
     def on_estado_changed(self, nuevo_estado):
         """Manejador para cuando cambia el estado seleccionado"""
         # Si el estado seleccionado es "En Reparación" y antes no lo era, abrir el formulario inmediatamente
-        if nuevo_estado == Camion.ESTADO_EN_REPARACION and self.estado_anterior != Camion.ESTADO_EN_REPARACION:
+        if nuevo_estado == Preventiva.ESTADO_EN_REPARACION and self.estado_anterior != Preventiva.ESTADO_EN_REPARACION:
             # Mostrar mensaje informativo
             QMessageBox.information(
                 self,
-                "Nueva Reparación",
-                "Para cambiar el estado a 'En Reparación', debe registrar los detalles de la reparación."
+                "Nueva Actualización de Reparación",
+                "Para cambiar el estado a 'En Reparación', debe registrar los detalles de la actualización."
             )
             if not self.abrir_formulario_reparacion():
                 # Si el formulario fue cancelado, volver al estado anterior
                 self.combo_estado.setCurrentText(self.estado_anterior)
         
-        # Si el camión pasa a otro estado, notificar el cambio a la ventana principal
+        # Si la preventiva pasa a otro estado, notificar el cambio a la ventana principal
         if nuevo_estado != self.estado_anterior:
-            # Actualizar la UI
-            self.actualizar_estado_ui()
-    
-    def actualizar_estado_ui(self):
-        """
-        Actualiza la UI después de un cambio de estado
-        """
-        # Notificar a la ventana principal sobre cambios
-        try:
-            # Buscar la ventana principal
-            main_window = self.parent()
-            while main_window and not hasattr(main_window, 'dashboard'):
-                main_window = main_window.parent()
+            # Buscar la ventana principal para notificar el cambio
+            parent_window = self.parent()
+            while parent_window and not hasattr(parent_window, 'dashboard'):
+                parent_window = parent_window.parent()
             
-            if main_window:
-                if hasattr(main_window, 'dashboard'):
-                    main_window.dashboard.agregar_actividad('camion', self.camion, "Cambio de estado")
-                    
-                if hasattr(main_window, 'refresh_data'):
-                    print("Actualizando datos en la ventana principal...")
-                    main_window.refresh_data()
-                    
-                if hasattr(main_window, 'reparaciones_widget') and main_window.reparaciones_widget:
-                    print("Actualizando lista de reparaciones en la ventana principal...")
-                    main_window.reparaciones_widget.cargarReparaciones()
-        except Exception as e:
-            print(f"Error al actualizar UI después de cambio de estado: {str(e)}")
-            # No mostrar este error al usuario, solo registrarlo
+            if parent_window and hasattr(parent_window, 'dashboard'):
+                # Actualizar el dashboard con el cambio de estado
+                parent_window.refresh_data()
     
     def guardar_cambios(self):
-        """Guarda los cambios realizados al camión"""
+        """Guarda los cambios realizados a la preventiva"""
         nuevo_estado = self.combo_estado.currentText()
+        nuevo_nivel_urgencia = self.combo_urgencia.currentText()
         
-        # Actualizar el estado del camión (ya validado en on_estado_changed)
-        self.camion.estado = nuevo_estado
+        # Actualizar el estado y nivel de urgencia de la preventiva
+        self.preventiva.estado = nuevo_estado
+        self.preventiva.nivel_urgencia = nuevo_nivel_urgencia
         
         # Guardar en la base de datos
         try:
-            self.camiones_dao.actualizar(self.camion)
+            self.preventivas_dao.actualizar(self.preventiva)
             
             # Notificar a la ventana principal sobre la actualización
-            self.actualizar_estado_ui()
+            parent_window = self.parent()
+            while parent_window and not hasattr(parent_window, 'dashboard'):
+                parent_window = parent_window.parent()
+            
+            if parent_window and hasattr(parent_window, 'dashboard'):
+                parent_window.dashboard.agregar_actividad('preventiva', self.preventiva, "Cambio de estado/urgencia")
+                parent_window.refresh_data()
             
             QMessageBox.information(self, "Éxito", "Cambios guardados correctamente")
             self.accept()
@@ -277,7 +283,7 @@ class DetalleCamionDialog(QDialog):
 
     def abrir_formulario_reparacion(self):
         """
-        Abre el formulario de reparación para el camión actual
+        Abre el formulario de reparación para la preventiva actual
         
         Returns:
             bool: True si se completó la reparación, False si se canceló
@@ -289,15 +295,15 @@ class DetalleCamionDialog(QDialog):
             
             # Crear datos iniciales para la reparación
             # Convertir ObjectId a string para compatibilidad con el formulario
-            camion_id = str(self.camion.id) if isinstance(self.camion.id, ObjectId) else self.camion.id
+            preventiva_id = str(self.preventiva.id) if isinstance(self.preventiva.id, ObjectId) else self.preventiva.id
             
             datos_reparacion = {
                 # No incluir ID, el controlador lo generará
-                'camion_id': camion_id,
-                'matricula': self.camion.matricula,
-                'modelo': self.camion.modelo,
-                'anio': self.camion.año,
-                'estado': Camion.ESTADO_EN_REPARACION,
+                'preventiva_id': preventiva_id,
+                'matricula': self.preventiva.matricula,
+                'modelo': self.preventiva.modelo,
+                'tipo': self.preventiva.tipo,
+                'estado': Preventiva.ESTADO_EN_REPARACION,
                 'fecha_ingreso': QDate.currentDate().toString('yyyy-MM-dd')
             }
             
@@ -306,13 +312,14 @@ class DetalleCamionDialog(QDialog):
             
             # Mostrar el formulario (pasando los datos iniciales)
             dialog = FormReparaciones(controller, datos_reparacion, self)
-            dialog.setWindowTitle(f"Nueva Reparación - Camión {self.camion.matricula}")
             
             if dialog.exec_():
                 # La reparación fue registrada correctamente
                 
-                # Actualizar la UI después de crear la reparación
-                self.actualizar_estado_ui()
+                # Notificar a la ventana principal que debe actualizar la lista de reparaciones
+                main_window = self.parent()
+                if hasattr(main_window, 'reparaciones_widget') and main_window.reparaciones_widget:
+                    main_window.reparaciones_widget.cargarReparaciones()
                 
                 return True
             else:
@@ -320,7 +327,7 @@ class DetalleCamionDialog(QDialog):
                 QMessageBox.warning(
                     self,
                     "Cambio de Estado Cancelado",
-                    "No se puede cambiar el estado a 'En Reparación' sin registrar los detalles de la reparación."
+                    "No se puede cambiar el estado a 'En Reparación' sin registrar los detalles de la actualización."
                 )
                 return False
         except Exception as e:
@@ -329,29 +336,3 @@ class DetalleCamionDialog(QDialog):
             print(f"Error detallado: {error_detallado}")
             QMessageBox.critical(self, "Error", f"No se pudo abrir el formulario de reparación: {str(e)}")
             return False
-    
-    def actualizar_estado_ui(self):
-        """
-        Actualiza la UI después de un cambio de estado
-        """
-        # Notificar a la ventana principal sobre cambios
-        try:
-            # Buscar la ventana principal
-            main_window = self.parent()
-            while main_window and not hasattr(main_window, 'dashboard'):
-                main_window = main_window.parent()
-            
-            if main_window:
-                if hasattr(main_window, 'dashboard'):
-                    main_window.dashboard.agregar_actividad('camion', self.camion, "Cambio de estado")
-                    
-                if hasattr(main_window, 'refresh_data'):
-                    print("Actualizando datos en la ventana principal...")
-                    main_window.refresh_data()
-                    
-                if hasattr(main_window, 'reparaciones_widget') and main_window.reparaciones_widget:
-                    print("Actualizando lista de reparaciones en la ventana principal...")
-                    main_window.reparaciones_widget.cargarReparaciones()
-        except Exception as e:
-            print(f"Error al actualizar UI después de cambio de estado: {str(e)}")
-            # No mostrar este error al usuario, solo registrarlo
