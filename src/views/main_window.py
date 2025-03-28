@@ -19,9 +19,11 @@ from models.usuario import Usuario
 from controllers.reparacion_controller import ReparacionController
 from controllers.camion_controller import CamionController
 from controllers.mecanico_controller import MecanicoController
+from controllers.preventiva_controller import PreventivaController
 from views.camiones.lista_camiones import ListaCamionesWidget
 from views.mecanicos.lista_mecanicos import ListaMecanicosWidget
 from views.reparaciones.lista_reparaciones import ListaReparaciones
+from views.preventivas.lista_preventivas import ListaPreventivasWidget
 from views.dashboard import DashboardWidget
 
 class MainWindow(QMainWindow):
@@ -38,6 +40,7 @@ class MainWindow(QMainWindow):
         self.reparacion_controller = ReparacionController()
         self.camion_controller = CamionController()
         self.mecanico_controller = MecanicoController()
+        self.preventiva_controller = PreventivaController()
         
         self.setupUI()
         self.centerOnScreen()
@@ -138,16 +141,20 @@ class MainWindow(QMainWindow):
         self.reparaciones_widget = ListaReparaciones(self.reparacion_controller)
         self.tabs.addTab(self.reparaciones_widget, "Reparaciones")
         
+        # Pestaña de preventivas
+        self.preventivas_widget = ListaPreventivasWidget(self.current_user)
+        self.tabs.addTab(self.preventivas_widget, "Preventivas")
+        
+        # Conectar señales del widget de preventivas
+        if hasattr(self.preventivas_widget, 'preventiva_seleccionada'):
+            self.preventivas_widget.preventiva_seleccionada.connect(self.on_preventiva_seleccionada)
+        
         # Si el usuario es administrador, añadir pestaña de administración
         if self.current_user and self.current_user.rol == Usuario.ROL_ADMIN:
             self.create_admin_tab()
         
         # Configurar el widget central
         self.setCentralWidget(self.tabs)
-    
-
-
-
     
     def create_admin_tab(self):
         """Crea la pestaña de administración"""
@@ -172,7 +179,7 @@ class MainWindow(QMainWindow):
         new_truck_action.triggered.connect(self.on_new_truck)
         file_menu.addAction(new_truck_action)
         
-        # Acción para nuevo mecánico (NUEVO)
+        # Acción para nuevo mecánico
         new_mechanic_action = QAction("Nuevo &Mecánico", self)
         new_mechanic_action.setShortcut("Ctrl+M")
         new_mechanic_action.setStatusTip("Registrar un nuevo mecánico")
@@ -184,6 +191,13 @@ class MainWindow(QMainWindow):
         new_repair_action.setStatusTip("Registrar una nueva reparación")
         new_repair_action.triggered.connect(self.on_new_repair)
         file_menu.addAction(new_repair_action)
+        
+        # Acción para nueva preventiva
+        new_preventiva_action = QAction("Nueva P&reventiva", self)
+        new_preventiva_action.setShortcut("Ctrl+E")
+        new_preventiva_action.setStatusTip("Registrar una nueva tarea de mantenimiento preventivo")
+        new_preventiva_action.triggered.connect(self.on_new_preventiva)
+        file_menu.addAction(new_preventiva_action)
         
         file_menu.addSeparator()
         
@@ -219,7 +233,7 @@ class MainWindow(QMainWindow):
         trucks_action.triggered.connect(lambda: self.tabs.setCurrentIndex(1))
         view_menu.addAction(trucks_action)
         
-        # Acción para ver mecánicos (NUEVO)
+        # Acción para ver mecánicos
         mechanics_action = QAction("&Mecánicos", self)
         mechanics_action.setStatusTip("Ver lista de mecánicos")
         mechanics_action.triggered.connect(lambda: self.tabs.setCurrentIndex(2))
@@ -227,8 +241,14 @@ class MainWindow(QMainWindow):
         
         repairs_action = QAction("&Reparaciones", self)
         repairs_action.setStatusTip("Ver lista de reparaciones")
-        repairs_action.triggered.connect(lambda: self.tabs.setCurrentIndex(3))  # Cambiar índice
+        repairs_action.triggered.connect(lambda: self.tabs.setCurrentIndex(3))
         view_menu.addAction(repairs_action)
+        
+        # Acción para ver preventivas
+        preventivas_action = QAction("P&reventivas", self)
+        preventivas_action.setStatusTip("Ver lista de mantenimientos preventivos")
+        preventivas_action.triggered.connect(lambda: self.tabs.setCurrentIndex(4))
+        view_menu.addAction(preventivas_action)
         
         view_menu.addSeparator()
         
@@ -263,7 +283,7 @@ class MainWindow(QMainWindow):
         new_truck_action.triggered.connect(self.on_new_truck)
         toolbar.addAction(new_truck_action)
         
-        # Botón nuevo mecánico (NUEVO)
+        # Botón nuevo mecánico
         new_mechanic_action = QAction("Nuevo Mecánico", self)
         new_mechanic_action.triggered.connect(self.on_new_mechanic)
         toolbar.addAction(new_mechanic_action)
@@ -272,6 +292,11 @@ class MainWindow(QMainWindow):
         new_repair_action = QAction("Nueva Reparación", self)
         new_repair_action.triggered.connect(self.on_new_repair)
         toolbar.addAction(new_repair_action)
+        
+        # Botón nueva preventiva
+        new_preventiva_action = QAction("Nueva Preventiva", self)
+        new_preventiva_action.triggered.connect(self.on_new_preventiva)
+        toolbar.addAction(new_preventiva_action)
         
         toolbar.addSeparator()
         
@@ -352,6 +377,29 @@ class MainWindow(QMainWindow):
             self.statusBar.showMessage("Nueva reparación registrada correctamente", 3000)
 
     @pyqtSlot()
+    def on_new_preventiva(self):
+        """Maneja la acción de crear una nueva tarea preventiva"""
+        from views.preventivas.form_preventiva import FormPreventivaDialog
+        
+        dialog = FormPreventivaDialog(parent=self)
+        if dialog.exec_():
+            # Notificar cambio en los datos
+            self.data_changed.emit()
+            
+            # Registrar actividad en el dashboard
+            if hasattr(self, 'dashboard') and hasattr(self.dashboard, 'agregar_actividad'):
+                try:
+                    # Obtener la preventiva recién creada
+                    nuevas_preventivas = self.preventivas_widget.preventivas_dao.obtener_todas()
+                    if nuevas_preventivas:
+                        nueva_preventiva = nuevas_preventivas[-1]  # Asumiendo que la última es la recién creada
+                        self.dashboard.agregar_actividad('preventiva', nueva_preventiva, "Nueva tarea preventiva creada")
+                except Exception as e:
+                    logging.error(f"Error al registrar actividad de nueva preventiva: {str(e)}")
+            
+            self.statusBar.showMessage("Nueva tarea preventiva registrada correctamente", 3000)
+
+    @pyqtSlot()
     def refresh_data(self):
         """Actualiza los datos en todas las pestañas"""
         if hasattr(self, 'dashboard') and hasattr(self.dashboard, 'refresh_data'):
@@ -381,6 +429,15 @@ class MainWindow(QMainWindow):
                 if hasattr(widget, 'cargarReparaciones'):
                     widget.cargarReparaciones()
                 break
+        
+        # Actualizar preventivas
+        preventivas_widget_names = ['preventivas_widget', 'preventivasWidget', 'lista_preventivas']
+        for widget_name in preventivas_widget_names:
+            if hasattr(self, widget_name):
+                widget = getattr(self, widget_name)
+                if hasattr(widget, 'refresh_data'):
+                    widget.refresh_data()
+                break
     
     @pyqtSlot(int)
     def on_tab_changed(self, index):
@@ -409,6 +466,17 @@ class MainWindow(QMainWindow):
             self.dashboard.agregar_actividad('reparacion', reparacion, "Reparación actualizada")
         
         self.statusBar.showMessage(f"Reparación actualizada correctamente", 3000)
+    
+    def on_preventiva_actualizada(self, preventiva):
+        """Maneja el evento de actualización de una preventiva"""
+        # Notificar cambio en los datos
+        self.data_changed.emit()
+        
+        # Registrar actividad en el dashboard
+        if hasattr(self, 'dashboard') and hasattr(self.dashboard, 'agregar_actividad'):
+            self.dashboard.agregar_actividad('preventiva', preventiva, "Preventiva actualizada")
+        
+        self.statusBar.showMessage(f"Preventiva actualizada correctamente", 3000)
         
     @pyqtSlot(object)
     def on_camion_seleccionado(self, camion):
@@ -422,6 +490,12 @@ class MainWindow(QMainWindow):
         if mecanico:
             self.statusBar.showMessage(f"Mecánico seleccionado: {mecanico.nombre} {mecanico.apellidos}", 3000)
     
+    @pyqtSlot(object)
+    def on_preventiva_seleccionada(self, preventiva):
+        """Maneja el evento de selección de una preventiva"""
+        if preventiva:
+            self.statusBar.showMessage(f"Preventiva seleccionada: {preventiva.matricula} ({preventiva.tipo})", 3000)
+    
     def export_data(self):
         """Exporta los datos a un archivo CSV"""
         current_index = self.tabs.currentIndex()
@@ -432,11 +506,13 @@ class MainWindow(QMainWindow):
             self.export_mechanics_data()
         elif current_index == 3:  # Pestaña de reparaciones
             self.export_repairs_data()
+        elif current_index == 4:  # Pestaña de preventivas
+            self.export_preventivas_data()
         else:
             QMessageBox.information(
                 self,
                 "Exportar Datos",
-                "Por favor, seleccione la pestaña de Camiones, Mecánicos o Reparaciones para exportar datos."
+                "Por favor, seleccione la pestaña de Camiones, Mecánicos, Reparaciones o Preventivas para exportar datos."
             )
     
     def export_trucks_data(self):
@@ -489,88 +565,6 @@ class MainWindow(QMainWindow):
                     f"Error al exportar datos: {str(e)}"
                 )
     
-    def print_list(self):
-        """Imprime la lista actual"""
-        printer = QPrinter(QPrinter.HighResolution)
-        preview = QPrintPreviewDialog(printer, self)
-        preview.paintRequested.connect(self.handle_print_request)
-        preview.exec_()
-    
-    def handle_print_request(self, printer):
-        """Maneja la solicitud de impresión"""
-        current_index = self.tabs.currentIndex()
-        
-        if current_index == 1:  # Pestaña de camiones
-            # Si el widget de camiones implementa una función para imprimir Panel de Control
-            if hasattr(self.camiones_widget, 'print_data'):
-                self.camiones_widget.print_data(printer)
-            else:
-                self.statusBar.showMessage("La funcionalidad de impresión para camiones no está implementada", 3000)
-        elif current_index == 2:  # Pestaña de mecánicos
-            # Si el widget de mecánicos implementa una función para imprimir
-            if hasattr(self.mecanicos_widget, 'print_data'):
-                self.mecanicos_widget.print_data(printer)
-            else:
-                self.statusBar.showMessage("La funcionalidad de impresión para mecánicos no está implementada", 3000)
-        elif current_index == 3:  # Pestaña de reparaciones
-            # Si el widget de reparaciones implementa una función para imprimir
-            if hasattr(self.reparaciones_widget, 'print_data'):
-                self.reparaciones_widget.print_data(printer)
-            else:
-                self.statusBar.showMessage("La funcionalidad de impresión para reparaciones no está implementada", 3000)
-        else:
-            self.statusBar.showMessage("No hay datos para imprimir en esta pestaña", 3000)
-    
-    def on_help(self):
-        """Maneja la acción de mostrar ayuda"""
-        QMessageBox.information(
-            self,
-            "Ayuda",
-            "Sistema de Gestión de Reparaciones de Camiones\n\n"
-            "Esta aplicación permite gestionar el registro y seguimiento "
-            "de reparaciones de una flota de camiones.\n\n"
-            "- Panel de Control: Muestra resumen de datos y estadísticas\n"
-            "- Camiones: Gestiona la flota de vehículos\n"
-            "- Mecánicos: Gestiona el personal de mantenimiento\n"
-            "- Reparaciones: Registro y seguimiento de reparaciones\n"
-            "- F5: Actualiza los datos en todas las vistas"
-        )
-    
-    def on_about(self):
-        """Maneja la acción de mostrar acerca de"""
-        QMessageBox.about(
-            self,
-            "Acerca de",
-            "Sistema de Gestión de Reparaciones de Camiones\n"
-            "Versión 1.0.1\n\n"
-            "Desarrollado como solución de software para gestionar "
-            "el mantenimiento y reparaciones de una flota de camiones."
-        )
-    
-    def centerOnScreen(self):
-        """Centra la ventana en la pantalla"""
-        screen = QDesktopWidget().screenGeometry()
-        size = self.geometry()
-        self.move(
-            (screen.width() - size.width()) // 2, 
-            (screen.height() - size.height()) // 2
-        )
-    
-    def closeEvent(self, event):
-        """Maneja el evento de cierre de la ventana"""
-        reply = QMessageBox.question(
-            self,
-            "Confirmar salida",
-            "¿Está seguro que desea salir de la aplicación?",
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.No
-        )
-        
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
-    
     def export_repairs_data(self):
         """Exporta los datos de reparaciones a un archivo CSV"""
         filename, _ = QFileDialog.getSaveFileName(
@@ -595,3 +589,66 @@ class MainWindow(QMainWindow):
                     "Error",
                     f"Error al exportar datos: {str(e)}"
                 )
+    
+    def export_preventivas_data(self):
+        """Exporta los datos de preventivas a un archivo CSV"""
+        filename, _ = QFileDialog.getSaveFileName(
+            self, 
+            "Exportar Datos de Preventivas", 
+            "", 
+            "Archivos CSV (*.csv);;Todos los archivos (*)"
+        )
+        
+        if filename:
+            try:
+                # Implementar la exportación de datos de preventivas
+                self.preventiva_controller.exportar_a_csv(filename)
+                QMessageBox.information(
+                    self,
+                    "Exportar Datos",
+                    f"Los datos se han exportado correctamente a: {filename}"
+                )
+            except Exception as e:
+                QMessageBox.critical(
+                    self,
+                    "Error",
+                    f"Error al exportar datos: {str(e)}"
+                )
+    
+    def print_list(self):
+        """Imprime la lista actual"""
+        printer = QPrinter(QPrinter.HighResolution)
+        preview = QPrintPreviewDialog(printer, self)
+        preview.paintRequested.connect(self.handle_print_request)
+        preview.exec_()
+    
+    def handle_print_request(self, printer):
+        """Maneja la solicitud de impresión"""
+        current_index = self.tabs.currentIndex()
+        
+        if current_index == 1:  # Pestaña de camiones
+            # Si el widget de camiones implementa una función para imprimir
+            if hasattr(self.camiones_widget, 'print_data'):
+                self.camiones_widget.print_data(printer)
+            else:
+                self.statusBar.showMessage("La funcionalidad de impresión para camiones no está implementada", 3000)
+        elif current_index == 2:  # Pestaña de mecánicos
+            # Si el widget de mecánicos implementa una función para imprimir
+            if hasattr(self.mecanicos_widget, 'print_data'):
+                self.mecanicos_widget.print_data(printer)
+            else:
+                self.statusBar.showMessage("La funcionalidad de impresión para mecánicos no está implementada", 3000)
+        elif current_index == 3:  # Pestaña de reparaciones
+            # Si el widget de reparaciones implementa una función para imprimir
+            if hasattr(self.reparaciones_widget, 'print_data'):
+                self.reparaciones_widget.print_data(printer)
+            else:
+                self.statusBar.showMessage("La funcionalidad de impresión para reparaciones no está implementada", 3000)
+        elif current_index == 4:  # Pestaña de preventivas
+            # Si el widget de preventivas implementa una función para imprimir
+            if hasattr(self.preventivas_widget, 'print_data'):
+                self.preventivas_widget.print_data(printer)
+            else:
+                self.statusBar.showMessage("La funcionalidad de impresión para preventivas no está implementada", 3000)
+        else:
+            self.statusBar.showMessage("No hay datos para imprimir en esta pestaña", 3000)
